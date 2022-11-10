@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.7
+      python: 3.9
     commands:
       - aws cloudformation package --template-file template.yaml --s3-bucket assignment2.b3-code-repo --output-template-file outputTemplate.yaml
 
