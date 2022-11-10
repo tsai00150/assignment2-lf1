@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: A sample SAM template for deploying Lambda functions.
+
+Resources:
+# Details about the myDateTimeFunction Lambda function
+  LF1:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.7
+      CodeUri: s3://assignment2.b3-code-repo/lf1.zip
+      FunctionName: index-photos
+      Role: arn:aws:iam::764420359320:role/assign2
+      Timeout: 30
