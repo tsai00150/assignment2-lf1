@@ -11,6 +11,7 @@ Resources:
       Runtime: python3.7
       FunctionName: indexphotos
       Role: arn:aws:iam::764420359320:role/assign2
+      CodeUri: s3://assignment2.b3-code-repo/lf1.zip
       Timeout: 30
 
 
