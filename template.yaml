@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: A sample SAM 111template for deploying Lambda functions.
 
 Resources:
-# Details about the myDateTimeFunction Lambda function
+# Details about Lambda1 function
   LF1:
     Type: AWS::Serverless::Function
     Properties:
