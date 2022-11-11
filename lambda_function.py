@@ -9,7 +9,7 @@ s3 = boto3.client('s3')
 
 
 def lambda_handler(event, context):
-    # this is to show that it works!
+
     bucket = event['Records'][0]['s3']['bucket']['name']
     key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
     try:
@@ -20,8 +20,11 @@ def lambda_handler(event, context):
         for label in rekog_labels:
             labels.append(label['Name'])
         metadata = s3.head_object(Bucket=bucket, Key=key)
-        if 'x-amz-meta-customLabels' in metadata['ResponseMetadata']['HTTPHeaders']:
-            pass # TODO: put the labels to label array
+        if 'x-amz-meta-customlabel' in metadata['ResponseMetadata']['HTTPHeaders']:
+            customlabel = metadata['ResponseMetadata']['HTTPHeaders']['x-amz-meta-customlabel']
+            list_customlabel = customlabel.split(', ')
+            for e in list_customlabel:
+                labels.append(e)
         timestamp = metadata['LastModified'].strftime("%Y-%m-%dT%H:%M:%S")
         json_obj = {"objectKey": key,
                     "bucket": bucket,
@@ -29,7 +32,7 @@ def lambda_handler(event, context):
                     "labels": labels}
         
         # upload the data to opensearch
-        host = os.environ['opensearchEndpoint']
+        host = 'search-opensearch-zsfvslqm09a9-4lecmit6k64rsp4z2wlze7pq7u.us-east-1.es.amazonaws.com'
         region = 'us-east-1' 
         credentials = boto3.Session().get_credentials()
         auth = AWSV4SignerAuth(credentials, region)
