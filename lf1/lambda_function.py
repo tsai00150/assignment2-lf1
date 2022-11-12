@@ -20,8 +20,8 @@ def lambda_handler(event, context):
         for label in rekog_labels:
             labels.append(label['Name'])
         metadata = s3.head_object(Bucket=bucket, Key=key)
-        if 'x-amz-meta-customlabel' in metadata['ResponseMetadata']['HTTPHeaders']:
-            customlabel = metadata['ResponseMetadata']['HTTPHeaders']['x-amz-meta-customlabel']
+        if 'x-amz-meta-customlabels' in metadata['ResponseMetadata']['HTTPHeaders']:
+            customlabel = metadata['ResponseMetadata']['HTTPHeaders']['x-amz-meta-customlabels']
             list_customlabel = customlabel.split(', ')
             for e in list_customlabel:
                 labels.append(e)
